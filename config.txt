@@ -1,0 +1,11 @@
+# A-Maze-ing – default config file
+# Format : KEY=VALUE (pair per line)
+# Lines starting with # are comments
+
+WIDTH=47
+HEIGHT=41
+ENTRY=7,4
+EXIT=46,40
+OUTPUT_FILE=maze.txt
+PERFECT=False
+SEED=42
