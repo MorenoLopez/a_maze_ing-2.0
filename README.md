@@ -2,6 +2,9 @@
 
 # A-Maze-ing
 
+![Maze generation preview](./maze-generation.png)
+![Path finding animation preview](./path-finding.png)
+
 ## Description
 
 A-Maze-ing 2.0 is an enhanced version of the original A-Maze-ing project, featuring smooth animations and improved visual feedback. This interactive maze generator written in Python aims to produce visual and playable mazes from a configuration file while providing an animated generation process, shortest path solving, and a text export of the result.
