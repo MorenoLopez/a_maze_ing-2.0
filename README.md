@@ -2,8 +2,9 @@
 
 # A-Maze-ing
 
-![Maze generation preview](./maze-generation.png)
-![Path finding animation preview](./path-finding.png)
+| Maze generation preview | Path finding animation preview |
+| :---: | :---: |
+| ![Maze generation preview](./maze-generation.png) | ![Path finding animation preview](./path-finding.png) |
 
 ## Description
 
