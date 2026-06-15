@@ -7,13 +7,14 @@
 #   By: horarivo <horarivo@student.42antananarivo.   +#+  +:+       +#+       #
 #                                                  +#+#+#+#+#+   +#+          #
 #   Created: 2026/05/25 18:52:47 by horarivo            #+#    #+#            #
-#   Updated: 2026/06/14 08:24:46 by horarivo           ###   ########.fr      #
+#   Updated: 2026/06/14 21:14:52 by horarivo           ###   ########.fr      #
 #                                                                             #
 # ########################################################################### #
 
 
 """AppState: MLX window, render buffer and event management."""
 
+import os
 import math
 from typing import Any, Optional
 
@@ -52,6 +53,9 @@ _WARM: tuple[int, int, int] = (255, 0, 0)
 # Path animation: number of path cells revealed per loop tick.
 # Higher = the tracing line draws faster from entry to exit.
 PATH_SPEED: int = 2
+
+_ICON_DIR = os.path.dirname(os.path.abspath(__file__))
+_ICON_PATH = os.path.join(_ICON_DIR, "../flash.xpm")
 
 
 class AppState:
@@ -154,13 +158,13 @@ class AppState:
         self.path_frame: int = 0
 
         self.gen: MazeGenerator = self._make_gen(cfg.seed)
-        self.spf: int = 6
+        self.spf: int = 50
         # self.spf: int = max(4, (cfg.width * cfg.height) // 80)
 
         # ## Icon ####################################################
         # ## DYNAMIC SPRITE SYSTEM ####################################─
         # 1. Load the XPM image
-        orig_res = mlx.mlx_xpm_file_to_image(self.mlx_ptr, "flash.xpm")
+        orig_res = mlx.mlx_xpm_file_to_image(self.mlx_ptr, _ICON_PATH)
 
         if orig_res and orig_res[0]:
             orig_ptr, orig_w, orig_h = orig_res
