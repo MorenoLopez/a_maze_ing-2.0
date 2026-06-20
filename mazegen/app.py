@@ -43,15 +43,12 @@ from .renderer import (
 from .solver import MazeSolver
 
 # Number of stack cells included in the light trail behind the DFS head.
-# The most recent cell has intensity 1.0, the oldest has ~(1/TRAIL_LEN).
 TRAIL_LEN: int = 80
 
 # Warm tint colour applied at maximum stack depth (deep exploration).
 # Blended toward this as the stack grows; fades back when backtracking.
 _WARM: tuple[int, int, int] = (255, 0, 0)
 
-# Path animation: number of path cells revealed per loop tick.
-# Higher = the tracing line draws faster from entry to exit.
 PATH_SPEED: int = 2
 
 _ICON_DIR = os.path.dirname(os.path.abspath(__file__))
