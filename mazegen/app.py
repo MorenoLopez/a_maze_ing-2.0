@@ -176,14 +176,7 @@ class AppState:
     # ## Generator management ##############################################
 
     def _make_gen(self, seed: Optional[int] = None) -> MazeGenerator:
-        """Create a new generator and reset all render state.
-
-        Args:
-            seed: Seed to use (None = pick randomly).
-
-        Returns:
-            A freshly initialised MazeGenerator.
-        """
+        """Create a new generator and reset all render state."""
         self.show_path = False
         self.solver = None
         self.needs_redraw = True
@@ -216,16 +209,7 @@ class AppState:
         c2: tuple[int, int, int],
         t: float,
     ) -> tuple[int, int, int]:
-        """Linearly interpolate between two RGB colours.
-
-        Args:
-            c1: Start colour at t=0.
-            c2: End colour at t=1.
-            t:  Blend factor, clamped to [0.0, 1.0].
-
-        Returns:
-            Interpolated RGB tuple.
-        """
+        """Linearly interpolate between two RGB colours."""
         t = max(0.0, min(1.0, t))
         return (
             int(c1[0] + (c2[0] - c1[0]) * t),
@@ -244,7 +228,6 @@ class AppState:
         sl = self.sl
         data = self.data
 
-        # Pre-compute static colour bytes (used for most cells)
         cb_bg = to_bytes(*pal["bg"])
         cb_wall = to_bytes(*pal["wall"])
         cb_visited = to_bytes(*pal["visited"])
@@ -265,13 +248,7 @@ class AppState:
         )
         draw_hline(data, sl, 0, self.maze_px_h, self.win_w, 1, cb_wall)
 
-        # ## Animation state (only computed during generation) ########─
-        #
-        # trail_map  : {pos: float}  intensity 0<t≤1 per trail cell
-        #              (1.0 = most recent = brightest, near the head)
-        # depth_t    : float 0..1   normalised stack depth
-        #              (0 = shallow / backtracking, 1 = deepest explored)
-        # pulse      : float 0.65..1.0  smooth oscillation for the head
+        # ## Animation state ########
 
         trail_map: dict[tuple[int, int], float] = {}
         depth_t: float = 0.0
@@ -282,7 +259,7 @@ class AppState:
             trail_slice = gen._stack[-TRAIL_LEN:]
             n = len(trail_slice)
             for i, cell in enumerate(trail_slice):
-                trail_map[cell] = (i + 1) / n  # oldest ≈ 1/n, head = 1.0
+                trail_map[cell] = (i + 1) / n
 
             # Depth: compare to half the total cells as a comfortable max
             half = max(1, (gen.width * gen.height) // 2)
