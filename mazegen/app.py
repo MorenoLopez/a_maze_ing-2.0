@@ -64,25 +64,12 @@ class AppState:
         3. ``mlx_string_put`` draws text on top (info bar).
 
     Generation animations (active while gen.done is False):
-        - **Light trail**: the last TRAIL_LEN cells on the DFS stack glow
-          and fade progressively — a "glowworm" digging through the maze.
-        - **Pulse**: the head cell oscillates between its colour and white
-          using a smooth sine wave, drawing the eye to the active point.
-        - **Depth tint**: the trail shifts toward a warm orange when the
-          stack is deep (exploring), and cools back when backtracking.
+        - Light trail
+        - Pulse
 
     Path animation (triggered by pressing P once generation is done):
-        - **Tracing line**: a thin line is drawn through the centre of
-          each solution-path cell, segment by segment, progressing from
-          entry to exit at PATH_SPEED cells per loop tick — like a pen
-          drawing the route on a map.
-        - **Pen tip**: a bright glowing square marks the leading end of
-          the line as it is drawn, and remains on the exit once the
-          tracing is complete.
-        - **Avatar follow**: the sprite icon follows the pen tip while
-          the line is being traced, and rests on the exit afterwards.
-        Pressing P again hides the line and resets the animation, so it
-        retraces from the start the next time it is shown.
+        - Tracing line
+        - Avatar follow
 
     Keyboard controls:
         - SPACE   : regenerate a new maze
@@ -96,12 +83,7 @@ class AppState:
     MIN_CELL: int = 6  # minimum cell size in pixels
 
     def __init__(self, cfg: Config, mlx: Any) -> None:
-        """Initialize MLX, create window and image buffer.
-
-        Args:
-            cfg: Validated maze configuration.
-            mlx: Instance of the Mlx class.
-        """
+        """Initialize MLX, create window and image buffer.."""
         self.cfg = cfg
         self.mlx: Any = mlx
 
