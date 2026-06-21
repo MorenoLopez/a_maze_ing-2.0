@@ -26,14 +26,7 @@ from .constants import (
 
 
 class MazeGenerator:
-    """Iterative recursive backtracker maze generator.
-
-    ``grid[y][x]`` = 4-bit mask NESW (1 = wall closed, 0 = open).
-    All cells start fully walled (0xF). The backtracker carves passages
-    by clearing wall bits on both sides simultaneously, guaranteeing
-    coherent wall data across neighbours.
-    Pattern '42' cells are pre-marked as visited so they stay fully walled.
-    """
+    """Iterative recursive backtracker maze generator"""
 
     def __init__(
         self,
@@ -44,16 +37,7 @@ class MazeGenerator:
         seed: Optional[int] = None,
         perfect: bool = True,
     ) -> None:
-        """Initialize and prepare generation.
-
-        Args:
-            width:   Width in cells.
-            height:  Height in cells.
-            entry:   Coordinates (x, y) of the entrance.
-            exit_:   Coordinates (x, y) of the exit.
-            seed:    Random seed (None = random).
-            perfect: If True, generates a perfect maze.
-        """
+        """Initialize and prepare generation"""
         self.width = width
         self.height = height
         self.entry = entry
@@ -86,15 +70,10 @@ class MazeGenerator:
         self._stamp_42()
         self._start_walk()
 
-    # ## '42' pattern ######################################################
+    # ## '42' pattern ##################################
 
     def _stamp_42(self) -> None:
-        """Centre the '42' pattern and mark its cells as pre-visited.
-
-        Pre-visited cells are skipped by the backtracker, so they remain
-        fully walled. If the maze is too small, a warning is printed and
-        the pattern is skipped.
-        """
+        """Centre the '42' pattern and mark its cells as pre-visited"""
         if self.width < PAT_W + 4 or self.height < PAT_H + 4:
             print(
                 f"[Info] Maze too small for pattern '42' "
@@ -115,7 +94,7 @@ class MazeGenerator:
                     self.visited[gy][gx] = True
                     self.is_42[gy][gx] = True
 
-    # ## Backtracker ######################################################─
+    # ## Backtracker ########################
 
     def _start_walk(self) -> None:
         """Start the depth-first walk from the entry cell."""
@@ -125,14 +104,7 @@ class MazeGenerator:
         self.current = (sx, sy)
 
     def step(self, n: int = 1) -> None:
-        """Advance n steps in the animated generation.
-
-        Each step tries to carve a passage to a random unvisited neighbour.
-        If none is available, the algorithm backtracks by popping the stack.
-
-        Args:
-            n: Number of steps to perform.
-        """
+        """Advance n steps in the animated generation."""
         for _ in range(n):
             if not self._stack:
                 self._finish()
@@ -168,7 +140,7 @@ class MazeGenerator:
             self._finish()
 
     def generate_all(self) -> None:
-        """Generate the complete maze in one go (non-animated)."""
+        """Generate the complete maze in one go"""
         while not self.done:
             self.step(256)
 
@@ -180,11 +152,7 @@ class MazeGenerator:
             self._add_loops()
 
     def _add_loops(self) -> None:
-        """Punch extra east-facing passages to create an imperfect maze.
-
-        Roughly 10% of the total cell count are opened. Cells belonging
-        to the '42' pattern are never touched.
-        """
+        """Punch extra east-facing passages to create an imperfect maze."""
         from .constants import EAST, WEST
         extra = max(1, (self.width * self.height) // 10)
         for _ in range(extra):
