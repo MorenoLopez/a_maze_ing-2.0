@@ -1,46 +1,28 @@
-# ######## Python Bytecode #########################
-# Python automatically compiles these files to speed up imports.
-# They are machine-specific → no need to version them.
+# ######## Python Bytecode ########################
 __pycache__/
 *.pyc
 *.pyo
 *.pyd
 
-# ## Tool Caches ########################################################
-# mypy stores its analysis here to avoid re-parsing everything on each run.
+# ## Tool Caches ##################################
 .mypy_cache/
-# pytest (if you add tests later)
 .pytest_cache/
-# coverage (test coverage reports)
 .coverage
 htmlcov/
 
-# ## Virtual Environments ##############################################─
-# Created by: python3 -m venv .venv
-# Contains locally installed packages → never versioned
-# (too heavy, depends on OS and Python version)
+# ## Virtual Environments #########################
 .env
 .venv/
 venv/
 env/
 ENV/
 
-# ## mazegen Package Build ############################################─
-# Temporary directories created by "python3 -m build"
-# The FINAL .whl and .tar.gz files must remain versioned (subject requirement)
+# ## mazegen Package Build ########################
 dist/
 build/
 *.egg-info/
 *.egg
 
-# ## Generated Output File ##############################################
-# maze.txt is the program's output, not source code.
-# Each run may produce a different file depending on the config.
+# ## Generated Output File ########################
 maze.txt
-
-# ## Miscellaneous ################################################################
-# macOS system files
-.DS_Store
-# Windows system files
-Thumbs.db
 
