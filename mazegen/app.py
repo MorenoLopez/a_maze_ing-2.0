@@ -268,16 +268,7 @@ class AppState:
             # Pulse: sine wave in [0.65, 1.0], period ≈ 35 frames
             pulse = 0.65 + 0.35 * math.sin(self.frame * 0.18)
 
-        # ## Path tracing animation state (only once generation is done) ─
-        #
-        # plist      : ordered list of (x, y) cells from entry to exit
-        # n_shown    : number of cells reached so far by the tracing pen
-        # path_head  : the "pen tip" — most recently revealed cell, drawn
-        #              with an extra glow. Stays on the exit once the
-        #              line has fully been traced.
-        #
-        # The line itself is drawn in a separate pass below (after the
-        # cell grid), so it overlays cell fills and walls cleanly.
+        # ## Path tracing animation state
 
         plist: list[tuple[int, int]] = []
         n_shown: int = 0
@@ -298,25 +289,20 @@ class AppState:
 
                 # ## Choose fill colour ################################
                 if gen.is_42[row][col]:
-                    # '42' pattern: always fully walled, dedicated colour
+                    # 42 pattern: always fully walled
                     cb_fill = cb_pattern
 
                 elif pos == gen.current:
-                    # DFS head: pulse between its colour and white
-                    # pulse=1.0 → fully white tint, pulse=0.65 → base
                     pulsed = self._blend_rgb(
                         pal["current"], (255, 255, 255), pulse * 0.75
                     )
                     cb_fill = to_bytes(*pulsed)
 
                 elif pos in trail_map:
-                    # Light trail: visited colour → current colour
-                    # based on recency (t), then warm-tinted by depth
                     t = trail_map[pos]
                     trail_col = self._blend_rgb(
                         pal["visited"], pal["current"], t * 0.4
                     )
-                    # Depth tint: shift toward warm orange when exploring deep
                     trail_col = self._blend_rgb(trail_col,
                                                 _WARM,
                                                 depth_t * t * 0.85
@@ -348,13 +334,7 @@ class AppState:
                 if walls & WEST:
                     draw_vline(data, sl, px, py, cs, ww, cb_wall)
 
-        # ## Path tracing line (drawn on top of cells and walls) ########
-        #
-        # The line runs through the centre of each revealed path cell.
-        # Consecutive cells differ by exactly one step (N/E/S/W), so each
-        # segment is a straight horizontal or vertical stroke spanning
-        # from one cell centre to the next — crossing the open wall gap
-        # between them.
+        # ## Path tracing line  ########
         if n_shown > 0:
             line_w = max(2, cs // 4)
             cb_line = to_bytes(*pal["path"])
@@ -370,20 +350,18 @@ class AppState:
                 py2 = cy2 * cs + cs // 2
 
                 if cy1 == cy2:
-                    # Horizontal segment: centres are cs apart on X
+                    # Horizontal segment
                     x0 = min(px1, px2)
                     draw_hline(
                         data, sl, x0, py1 - line_w // 2, cs, line_w, cb_line
                     )
                 else:
-                    # Vertical segment: centres are cs apart on Y
+                    # Vertical segment
                     y0 = min(py1, py2)
                     draw_vline(
                         data, sl, px1 - line_w // 2, y0, cs, line_w, cb_line
                     )
 
-            # Glowing pen tip at the head cell's centre — bigger and
-            # brighter than the line itself, marks the tracing front.
             if path_head is not None:
                 hx, hy = path_head
                 tip_w = max(line_w + 4, cs // 2)
@@ -414,9 +392,7 @@ class AppState:
                 self.mlx_ptr, self.win_ptr, self.icon_ptr, head_x, head_y
             )
 
-        # While the path is being traced, the avatar follows the pen tip;
-        # otherwise it falls back to the DFS head (during generation) or
-        # rests on the exit (idle, once generation is done).
+
         if gen.done and self.show_path and path_head is not None:
             avatar_pos = path_head
         else:
@@ -484,8 +460,6 @@ class AppState:
         elif keycode == KEY_P:
             if self.gen.done:
                 self.show_path = not self.show_path
-                # Restart the tracing animation from the entry every
-                # time the path is (re)displayed.
                 self.path_frame = 0
                 self.needs_redraw = True
         elif keycode == KEY_C:
@@ -493,18 +467,7 @@ class AppState:
             self.needs_redraw = True
 
     def on_loop(self, _param: object) -> None:
-        """Called on every MLX loop iteration.
-
-        While generating: advances the backtracker by self.spf steps and
-        increments the animation frame counter (pulse and trail).
-
-        Once generation is done and the path is shown: advances the path
-        tracing animation by PATH_SPEED cells per tick until the line
-        reaches the exit.
-
-        Args:
-            _param: Parameter passed to the hook (ignored).
-        """
+        """Called on every MLX loop iteration."""
         if not self.gen.done:
             self.gen.step(self.spf)
             self.frame += 1  # drives pulse and trail animation
@@ -528,19 +491,11 @@ class AppState:
             self.needs_redraw = False
 
     def on_expose(self, _param: object) -> None:
-        """Redraw when the window is re-exposed (uncovered).
-
-        Args:
-            _param: Parameter passed to the hook (ignored).
-        """
+        """Redraw when the window is re-exposed"""
         self.needs_redraw = True
 
     def on_close(self, _param: object) -> None:
-        """Handle the window close button (WM_DELETE_WINDOW).
-
-        Args:
-            _param: Parameter passed to the hook (ignored).
-        """
+        """Handle the window close button (WM_DELETE_WINDOW)"""
         self.mlx.mlx_loop_exit(self.mlx_ptr)
 
     # ## Main loop ########################################################
