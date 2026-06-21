@@ -11,14 +11,14 @@
 #                                                                             #
 # ########################################################################### #
 
-"""Read and validate KEY=VALUE configuration file."""
+"""Read and validate KEY=VALUE configuration file"""
 
 import sys
 from typing import ClassVar, NoReturn, Optional
 
 
 def die(msg: str) -> NoReturn:
-    """Display an error on stderr and exit with code 1."""
+    """Display an error on stderr and exit with code 1"""
 
     print(f"[Error] {msg}", file=sys.stderr)
     sys.exit(1)
@@ -28,7 +28,7 @@ def _parse_coord(
     raw: dict[str, str],
     key: str,
 ) -> tuple[int, int]:
-    """Parse 'x,y' from raw[key] and return an integer tuple."""
+    """Parse 'x,y' from raw[key] and return an integer tuple"""
 
     try:
         a, b = raw[key].split(",")
@@ -38,7 +38,7 @@ def _parse_coord(
 
 
 class Config:
-    """Read and validate KEY=VALUE configuration file."""
+    """Read and validate KEY=VALUE configuration file"""
 
     REQUIRED: ClassVar[set[str]] = {
         "WIDTH",
@@ -59,7 +59,7 @@ class Config:
         perfect: bool,
         seed: Optional[int],
     ) -> None:
-        """Store validated configuration parameters."""
+        """Store validated configuration parameters"""
 
         self.width = width
         self.height = height
@@ -71,8 +71,8 @@ class Config:
 
     @classmethod
     def from_file(cls, path: str) -> "Config":
-        """Parse the configuration file and return an instance."""
-        
+        """Parse the configuration file and return an instance"""
+
         raw: dict[str, str] = {}
         try:
             with open(path) as f:
