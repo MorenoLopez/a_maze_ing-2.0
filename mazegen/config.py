@@ -18,11 +18,8 @@ from typing import ClassVar, NoReturn, Optional
 
 
 def die(msg: str) -> NoReturn:
-    """Display an error on stderr and exit with code 1.
+    """Display an error on stderr and exit with code 1."""
 
-    Args:
-        msg: Error message to display.
-    """
     print(f"[Error] {msg}", file=sys.stderr)
     sys.exit(1)
 
@@ -31,15 +28,8 @@ def _parse_coord(
     raw: dict[str, str],
     key: str,
 ) -> tuple[int, int]:
-    """Parse 'x,y' from raw[key] and return an integer tuple.
+    """Parse 'x,y' from raw[key] and return an integer tuple."""
 
-    Args:
-        raw: Dictionary of KEY=VALUE pairs from config file.
-        key: Key to read ('ENTRY' or 'EXIT').
-
-    Returns:
-        Tuple (x, y).
-    """
     try:
         a, b = raw[key].split(",")
         return (int(a.strip()), int(b.strip()))
@@ -69,17 +59,8 @@ class Config:
         perfect: bool,
         seed: Optional[int],
     ) -> None:
-        """Store validated configuration parameters.
+        """Store validated configuration parameters."""
 
-        Args:
-            width:       Width in cells.
-            height:      Height in cells.
-            entry:       Coordinates (x, y) of the entrance.
-            exit_:       Coordinates (x, y) of the exit.
-            output_file: Output file path.
-            perfect:     If True, generates a perfect maze (no loops).
-            seed:        Random seed (None = random).
-        """
         self.width = width
         self.height = height
         self.entry = entry
@@ -90,14 +71,8 @@ class Config:
 
     @classmethod
     def from_file(cls, path: str) -> "Config":
-        """Parse the configuration file and return an instance.
-
-        Args:
-            path: Path to the configuration file.
-
-        Returns:
-            Ready-to-use Config instance.
-        """
+        """Parse the configuration file and return an instance."""
+        
         raw: dict[str, str] = {}
         try:
             with open(path) as f:
