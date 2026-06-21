@@ -42,40 +42,22 @@ class MazeSolver:
     Example usage::
 
         gen = MazeGenerator(20, 15, (0, 0), (19, 14), seed=42)
-        gen.generate_all()
-
-        solver = MazeSolver(gen)
-        path  = solver.solve()        # ['E', 'E', 'S', ...]
-        cells = solver.path_cells()   # {(0, 0), (1, 0), ...}
-        bfs   = solver.bfs_order()    # [(0,0), (1,0), (0,1), ...]
-        plist = solver.path_list()    # [(0,0), (1,0), (1,1), ...]
-    """
+        gen.generate_all()"""
 
     def __init__(self, gen: MazeGenerator) -> None:
-        """Attach the solver to a MazeGenerator.
-
-        Args:
-            gen: A MazeGenerator instance (ideally with done=True).
-        """
+        """Attach the solver to a MazeGenerator"""
+        
         self._gen = gen
         # Cached solution path (None = not yet computed)
         self._path: Optional[list[str]] = None
         # BFS cell discovery order (populated during solve())
         self._bfs_order: list[tuple[int, int]] = []
 
-    # ## Core solve ########################################################
+    # ## Core solve ###############################
 
     def solve(self) -> list[str]:
-        """Find the shortest path from entry to exit using BFS.
+        """Find the shortest path from entry to exit using BFS"""
 
-        The result is cached: repeated calls are free.
-        ``bfs_order()`` is populated as a side-effect of the first call.
-
-        Returns:
-            Ordered list of direction letters ('N', 'E', 'S', 'W').
-            Returns an empty list if no path exists (should not happen
-            in a correctly generated perfect maze).
-        """
         if self._path is not None:
             return self._path
 
@@ -114,16 +96,11 @@ class MazeSolver:
         self._path = []
         return self._path
 
-    # ## Derived sequences ################################################─
+    # ## Derived sequences #########################
 
     def path_cells(self) -> set[tuple[int, int]]:
-        """Return every (x, y) cell on the solution path as a set.
+        """Return every (x, y) cell on the solution path as a set"""
 
-        Calls solve() internally if not already called.
-
-        Returns:
-            Set of coordinate tuples from entry to exit inclusive.
-        """
         cells: set[tuple[int, int]] = {self._gen.entry}
         x, y = self._gen.entry
         for d in self.solve():
@@ -133,16 +110,8 @@ class MazeSolver:
         return cells
 
     def path_list(self) -> list[tuple[int, int]]:
-        """Return the solution path as an ordered list (entry → exit).
+        """Return the solution path as an ordered list (entry → exit)"""
 
-        Used by the flow animation to map each cell to its position
-        along the path (index 0 = entry, index -1 = exit).
-
-        Calls solve() internally if not already called.
-
-        Returns:
-            Ordered list of (x, y) tuples covering the full path.
-        """
         result: list[tuple[int, int]] = [self._gen.entry]
         x, y = self._gen.entry
         for d in self.solve():
@@ -152,13 +121,7 @@ class MazeSolver:
         return result
 
     def bfs_order(self) -> list[tuple[int, int]]:
-        """Return cells in BFS discovery order (entry explored first).
+        """Return cells in BFS discovery order (entry explored first)"""
 
-        Calls solve() internally if not already called.
-        The list is populated during solve() with no extra cost.
-
-        Returns:
-            Ordered list of (x, y) tuples in the order BFS reached them.
-        """
         self.solve()  # ensure _bfs_order is populated
         return self._bfs_order
