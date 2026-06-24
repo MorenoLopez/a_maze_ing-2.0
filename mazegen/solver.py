@@ -4,10 +4,10 @@
 #                                                          :::      ::::::::  #
 #   solver.py                                            :+:      :+:    :+:  #
 #                                                      +:+ +:+         +:+    #
-#   By: horarivo <horarivo@student.42antananarivo.   +#+  +:+       +#+       #
+#   By: codespace <codespace@student.42.fr>          +#+  +:+       +#+       #
 #                                                  +#+#+#+#+#+   +#+          #
 #   Created: 2026/05/02 18:47:42 by orarivo             #+#    #+#            #
-#   Updated: 2026/06/14 08:24:46 by horarivo           ###   ########.fr      #
+#   Updated: 2026/06/24 06:29:06 by codespace          ###   ########.fr      #
 #                                                                             #
 # ########################################################################### #
 
@@ -46,7 +46,7 @@ class MazeSolver:
 
     def __init__(self, gen: MazeGenerator) -> None:
         """Attach the solver to a MazeGenerator"""
-        
+
         self._gen = gen
         # Cached solution path (None = not yet computed)
         self._path: Optional[list[str]] = None

@@ -392,7 +392,6 @@ class AppState:
                 self.mlx_ptr, self.win_ptr, self.icon_ptr, head_x, head_y
             )
 
-
         if gen.done and self.show_path and path_head is not None:
             avatar_pos = path_head
         else:
