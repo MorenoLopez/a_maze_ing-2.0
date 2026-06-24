@@ -3,19 +3,19 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: horarivo <horarivo@student.42antananari    +#+  +:+       +#+         #
+#    By: codespace <codespace@student.42.fr>        +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2026/05/26 18:15:51 by horarivo          #+#    #+#              #
-#    Updated: 2026/06/12 11:56:19 by horarivo         ###   ########.fr        #
+#    Updated: 2026/06/24 06:32:45 by codespace        ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
-# ## Variables #############################################
+# ## Variables ##
 PYTHON  = python3
 MAIN    = a_maze_ing.py
 CONFIG  = config.txt
 
-# mypy flags (non-strict lint
+# mypy flags (non-strict lint) ##
 MYPY_FLAGS = \
 	--warn-return-any \
 	--warn-unused-ignores \
@@ -23,22 +23,22 @@ MYPY_FLAGS = \
 	--disallow-untyped-defs \
 	--check-untyped-defs
 
-# ## Phony targets (not files) ###############################
+# ## Phony targets ##
 .PHONY: install run debug clean lint lint-strict
 
-# ## install #################################################
+# ## install ##
 install:
 	$(PYTHON) -m pip install -r requirements.txt
 
-# ## run #####################################################
+# ## run ##
 run:
 	$(PYTHON) $(MAIN) $(CONFIG)
 
-# ## debug ###################################################
+# ## debug ##
 debug:
 	$(PYTHON) -m pdb $(MAIN) $(CONFIG)
 
-# ## clean ###################################################
+# ## clean ##
 clean:
 	find . -type d -name "__pycache__" -prune -exec rm -rf {} \;
 	find . -type d -name ".mypy_cache" -prune -exec rm -rf {} \;
@@ -46,10 +46,10 @@ clean:
 	find . -name "*.pyo" -delete
 	@echo "Cleanup complete."
 
-# ## lint ####################################################
+# ## lint ##
 lint:
 	flake8 . && mypy . $(MYPY_FLAGS)
 
-# ## lint-strict #############################################
+# ## lint-strict ##
 lint-strict:
 	flake8 . && mypy . --strict
