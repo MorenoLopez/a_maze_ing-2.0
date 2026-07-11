@@ -4,10 +4,10 @@
 #                                                          :::      ::::::::  #
 #   app.py                                               :+:      :+:    :+:  #
 #                                                      +:+ +:+         +:+    #
-#   By: horarivo <horarivo@student.42antananarivo.   +#+  +:+       +#+       #
+#   By: codespace <codespace@student.42.fr>          +#+  +:+       +#+       #
 #                                                  +#+#+#+#+#+   +#+          #
 #   Created: 2026/05/25 18:52:47 by horarivo            #+#    #+#            #
-#   Updated: 2026/06/14 21:14:52 by horarivo           ###   ########.fr      #
+#   Updated: 2026/07/11 07:17:16 by codespace          ###   ########.fr      #
 #                                                                             #
 # ########################################################################### #
 
@@ -192,11 +192,7 @@ class AppState:
         )
 
     def _get_solver(self) -> MazeSolver:
-        """Return the cached MazeSolver, creating it if necessary.
-
-        Returns:
-            A MazeSolver attached to the current generator.
-        """
+        """Return the cached MazeSolver, creating it if necessary."""
         if self.solver is None:
             self.solver = MazeSolver(self.gen)
         return self.solver
