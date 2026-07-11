@@ -1,10 +1,12 @@
-*This project has been created as part of the 42 curriculum by horarivo.* (A version made entirely by myself)
+*This project has been created as part of the 42 curriculum by horarivo.*
 
 # A-Maze-ing
 
+> A version made entirely by myself
+
 | Maze generation preview | Path finding animation preview |
 | :---: | :---: |
-| ![Maze generation preview](./maze-generation.png) | ![Path finding animation preview](./path-finding.png) |
+| ![Maze generation preview](./img/maze-generation.png) | ![Path finding animation preview](./img/path-finding.png) |
 
 ## Description
 
@@ -25,21 +27,45 @@ The maze is rendered in an MLX window with enhanced visual polish and interactiv
 ### Requirements
 
 - Python 3.10 or higher
-- `mlx` module compatible with Python 3 (provided as `mlx-2.2-py3-none-any.whl`)
+- `mlx` module compatible with Python 3 (provided as `mlx-2.2-py3-none-any.whl`, must be placed at the repository root)
 
 ### Installation
 
-1. Install Python 3.10+.
-2. Install development dependencies if needed:
+A `Makefile` is provided to automate setup. It creates a virtual environment (`.venv`), installs the lint/build dependencies, and installs the MLX wheel into it:
 
 ```bash
-python3 -m pip install -r requirements.txt
+make install
 ```
 
-3. Install the MLX module from the provided wheel:
+This runs, in order:
 
 ```bash
-python3 -m pip install mlx-2.2-py3-none-any.whl
+python3 -m venv .venv
+. .venv/bin/activate && pip install --upgrade pip
+. .venv/bin/activate && pip install -r requirements.txt
+. .venv/bin/activate && pip install mlx-*.whl
+```
+
+If you prefer to do it manually:
+
+1. Install Python 3.10+.
+2. Create and activate a virtual environment:
+
+```bash
+python3 -m venv .venv
+source .venv/bin/activate
+```
+
+3. Install the lint/build dependencies:
+
+```bash
+pip install -r requirements.txt
+```
+
+4. Install the MLX module from the provided wheel:
+
+```bash
+pip install mlx-2.2-py3-none-any.whl
 ```
 
 ### Execution
@@ -48,8 +74,21 @@ python3 -m pip install mlx-2.2-py3-none-any.whl
 2. Run the application:
 
 ```bash
-python3 a_maze_ing.py config.txt
+make run
 ```
+
+or, equivalently:
+
+```bash
+. .venv/bin/activate && python3 a_maze_ing.py config.txt
+```
+
+### Other Makefile targets
+
+- `make debug`: runs the program under `pdb`.
+- `make lint`: runs `flake8` and `mypy` with the mandatory flags.
+- `make lint-strict`: runs `flake8` and `mypy --strict`.
+- `make clean`: removes caches (`__pycache__`, `.mypy_cache`, `.pytest_cache`) and the `.venv` directory.
 
 ### Keyboard controls
 
@@ -128,12 +167,13 @@ These components can be reused in other maze, game, or graphical application pro
 - `maze.txt`: generated output file
 - `pyproject.toml`: package configuration
 - `requirements.txt`: development dependencies
+- `Makefile`: install / run / debug / clean / lint targets
 
 ## Project management
 
 ### Team
 
-- `horarivo`: maze generation algorithm, desing, and documentation, path finding algorithm, testing
+- `horarivo`: maze generation algorithm, design, and documentation, path finding algorithm, testing
 
 ### Planning
 
@@ -159,7 +199,7 @@ These components can be reused in other maze, game, or graphical application pro
 ### Tools used
 
 - Python 3.10+
-- `pip` for dependency management
+- `pip` and `venv` for dependency management and isolation
 - `mlx` / MiniLibX for graphical output
 - VS Code for development
 - Git for version control
