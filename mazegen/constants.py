@@ -7,7 +7,7 @@
 #   By: codespace <codespace@student.42.fr>          +#+  +:+       +#+       #
 #                                                  +#+#+#+#+#+   +#+          #
 #   Created: 2026/05/26 18:38:40 by horarivo            #+#    #+#            #
-#   Updated: 2026/07/11 07:27:53 by codespace          ###   ########.fr      #
+#   Updated: 2026/07/11 07:31:32 by codespace          ###   ########.fr      #
 #                                                                             #
 # ########################################################################### #
 
@@ -15,7 +15,7 @@
 
 from typing import Final
 
-# ## Wall bitmasks (bit0=N, bit1=E, bit2=S, bit3=W; 1=closed) ############
+# ## Wall bitmasks (bit0=N, bit1=E, bit2=S, bit3=W; 1=closed)
 NORTH: Final[int] = 0b0001
 EAST: Final[int] = 0b0010
 SOUTH: Final[int] = 0b0100
@@ -40,14 +40,14 @@ DIR_NAME: Final[dict[int, str]] = {
     WEST: "W",
 }
 
-# ## X11 Keycodes ########################################################
+# ## X11 Keycodes
 KEY_Q: Final[int] = 113
 KEY_C: Final[int] = 99
 KEY_P: Final[int] = 112
 KEY_SPACE: Final[int] = 32
 KEY_ESCAPE: Final[int] = 65307
 
-# ## Pattern "42" (9 columns × 7 rows) ##################################
+# ## Pattern "42" (9 columns × 7 rows)
 PAT_H: Final[int] = 7
 PAT_W: Final[int] = 9  # 4 + 1 espace + 4
 
@@ -87,7 +87,7 @@ def _build_42() -> list[list[int]]:
 
 PATTERN_42: Final[list[list[int]]] = _build_42()
 
-# ## Color palettes ##################################################
+# ## Color palettes
 _Palette = dict[str, tuple[int, int, int]]
 
 PALETTES: Final[list[_Palette]] = [
