@@ -219,6 +219,6 @@ a-maze-ing/
 ### AI usage
 
 - **Animation Implementation**: AI assistance was used to implement smooth animations for maze generation and path display, improving the visual feedback and user experience.
-- **Code Quality**: Copilot helped refactor and optimize the code to support animation features efficiently.
+- **Code Quality**: AI helped refactor and optimize the code to support animation features efficiently.
 - **Documentation**: AI was used to enhance comments and docstrings throughout the codebase, making the code more maintainable and easier to understand for other developers.
 - **Code Review**: AI provided suggestions for improving code consistency and best practices.
