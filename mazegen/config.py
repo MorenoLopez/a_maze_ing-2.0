@@ -4,10 +4,10 @@
 #                                                          :::      ::::::::  #
 #   config.py                                            :+:      :+:    :+:  #
 #                                                      +:+ +:+         +:+    #
-#   By: horarivo <horarivo@student.42antananarivo.   +#+  +:+       +#+       #
+#   By: codespace <codespace@student.42.fr>          +#+  +:+       +#+       #
 #                                                  +#+#+#+#+#+   +#+          #
 #   Created: 2026/05/26 18:33:06 by horarivo            #+#    #+#            #
-#   Updated: 2026/06/14 08:24:14 by horarivo           ###   ########.fr      #
+#   Updated: 2026/07/11 07:27:41 by codespace          ###   ########.fr      #
 #                                                                             #
 # ########################################################################### #
 

@@ -4,10 +4,10 @@
 #                                                          :::      ::::::::  #
 #   constants.py                                         :+:      :+:    :+:  #
 #                                                      +:+ +:+         +:+    #
-#   By: horarivo <horarivo@student.42antananarivo.   +#+  +:+       +#+       #
+#   By: codespace <codespace@student.42.fr>          +#+  +:+       +#+       #
 #                                                  +#+#+#+#+#+   +#+          #
 #   Created: 2026/05/26 18:38:40 by horarivo            #+#    #+#            #
-#   Updated: 2026/06/14 08:24:17 by horarivo           ###   ########.fr      #
+#   Updated: 2026/07/11 07:27:53 by codespace          ###   ########.fr      #
 #                                                                             #
 # ########################################################################### #
 
