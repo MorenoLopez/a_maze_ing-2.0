@@ -6,12 +6,13 @@
 #    By: codespace <codespace@student.42.fr>        +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2026/05/26 18:15:51 by horarivo          #+#    #+#              #
-#    Updated: 2026/06/24 06:32:45 by codespace        ###   ########.fr        #
+#    Updated: 2026/07/11 07:39:16 by codespace        ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
-# ## Variables ##
 PYTHON  = python3
+VENV    = .venv
+ACTIVATE = . $(VENV)/bin/activate
 MAIN    = a_maze_ing.py
 CONFIG  = config.txt
 
@@ -23,33 +24,37 @@ MYPY_FLAGS = \
 	--disallow-untyped-defs \
 	--check-untyped-defs
 
-# ## Phony targets ##
+
 .PHONY: install run debug clean lint lint-strict
 
-# ## install ##
 install:
-	$(PYTHON) -m pip install -r requirements.txt
+	$(PYTHON) -m venv $(VENV)
+	$(ACTIVATE) && pip install --upgrade pip
+	$(ACTIVATE) && pip install -r requirements.txt
+	@if ls mlx-*.whl >/dev/null 2>&1; then \
+		$(ACTIVATE) && pip install mlx-*.whl; \
+	else \
+		echo "[Warn] mlx wheel not found, place it at repo root first."; \
+	fi
 
-# ## run ##
 run:
-	$(PYTHON) $(MAIN) $(CONFIG)
+	$(ACTIVATE) && python3 $(MAIN) $(CONFIG)
 
-# ## debug ##
 debug:
-	$(PYTHON) -m pdb $(MAIN) $(CONFIG)
+	$(ACTIVATE) && python3 -m pdb $(MAIN) $(CONFIG)
 
-# ## clean ##
 clean:
 	find . -type d -name "__pycache__" -prune -exec rm -rf {} \;
 	find . -type d -name ".mypy_cache" -prune -exec rm -rf {} \;
 	find . -name "*.pyc" -delete
 	find . -name "*.pyo" -delete
+	rm -rf $(VENV)
 	@echo "Cleanup complete."
 
-# ## lint ##
 lint:
-	flake8 . && mypy . $(MYPY_FLAGS)
+	$(ACTIVATE) && flake8 .
+	$(ACTIVATE) && mypy . $(MYPY_FLAGS)
 
-# ## lint-strict ##
 lint-strict:
-	flake8 . && mypy . --strict
+	$(ACTIVATE) && flake8 .
+	$(ACTIVATE) && mypy . --strict
