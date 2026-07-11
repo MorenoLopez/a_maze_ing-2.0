@@ -2,7 +2,7 @@
 
 # A-Maze-ing
 
-> A version made entirely by myself
+> A version made entirely by myself, with bonus part (animation)
 
 | Maze generation preview | Path finding animation preview |
 | :---: | :---: |
