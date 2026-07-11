@@ -7,7 +7,7 @@
 #   By: codespace <codespace@student.42.fr>          +#+  +:+       +#+       #
 #                                                  +#+#+#+#+#+   +#+          #
 #   Created: 2026/05/02 18:47:42 by orarivo             #+#    #+#            #
-#   Updated: 2026/06/24 06:29:06 by codespace          ###   ########.fr      #
+#   Updated: 2026/07/11 07:34:33 by codespace          ###   ########.fr      #
 #                                                                             #
 # ########################################################################### #
 
@@ -53,7 +53,7 @@ class MazeSolver:
         # BFS cell discovery order (populated during solve())
         self._bfs_order: list[tuple[int, int]] = []
 
-    # ## Core solve ###############################
+    # ## Core solve
 
     def solve(self) -> list[str]:
         """Find the shortest path from entry to exit using BFS"""
@@ -96,7 +96,7 @@ class MazeSolver:
         self._path = []
         return self._path
 
-    # ## Derived sequences #########################
+    # ## Derived sequences
 
     def path_cells(self) -> set[tuple[int, int]]:
         """Return every (x, y) cell on the solution path as a set"""
