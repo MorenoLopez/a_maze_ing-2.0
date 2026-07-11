@@ -4,10 +4,10 @@
 #                                                          :::      ::::::::  #
 #   generator.py                                         :+:      :+:    :+:  #
 #                                                      +:+ +:+         +:+    #
-#   By: horarivo <horarivo@student.42antananarivo.   +#+  +:+       +#+       #
+#   By: codespace <codespace@student.42.fr>          +#+  +:+       +#+       #
 #                                                  +#+#+#+#+#+   +#+          #
 #   Created: 2026/05/26 18:42:42 by horarivo            #+#    #+#            #
-#   Updated: 2026/06/14 08:24:22 by horarivo           ###   ########.fr      #
+#   Updated: 2026/07/11 07:32:40 by codespace          ###   ########.fr      #
 #                                                                             #
 # ########################################################################### #
 
@@ -70,7 +70,7 @@ class MazeGenerator:
         self._stamp_42()
         self._start_walk()
 
-    # ## '42' pattern ##################################
+    # ## '42' pattern
 
     def _stamp_42(self) -> None:
         """Centre the '42' pattern and mark its cells as pre-visited"""
@@ -94,7 +94,7 @@ class MazeGenerator:
                     self.visited[gy][gx] = True
                     self.is_42[gy][gx] = True
 
-    # ## Backtracker ########################
+    # ## Backtracker
 
     def _start_walk(self) -> None:
         """Start the depth-first walk from the entry cell."""
