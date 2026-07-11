@@ -7,7 +7,7 @@
 #   By: codespace <codespace@student.42.fr>          +#+  +:+       +#+       #
 #                                                  +#+#+#+#+#+   +#+          #
 #   Created: 2026/05/25 18:52:47 by horarivo            #+#    #+#            #
-#   Updated: 2026/07/11 07:24:16 by codespace          ###   ########.fr      #
+#   Updated: 2026/07/11 07:30:20 by codespace          ###   ########.fr      #
 #                                                                             #
 # ########################################################################### #
 
@@ -91,7 +91,7 @@ class AppState:
         if not self.mlx_ptr:
             die("Failed to initialize MLX.")
 
-        # ## Compute pixel dimensions ##################################
+        # ## Compute pixel dimensions
         _, screen_w, screen_h = mlx.mlx_get_screen_size(self.mlx_ptr)
 
         self.cs: int = max(
@@ -107,14 +107,14 @@ class AppState:
         self.win_h: int = self.maze_px_h + self.INFO_H
         self.wall_w: int = max(1, self.cs // 9)
 
-        # ## Create window ############################################
+        # ## Create window
         self.win_ptr: Any = mlx.mlx_new_window(
             self.mlx_ptr, self.win_w, self.win_h, "A-Maze-ing"
         )
         if not self.win_ptr:
             die("Unable to create MLX window.")
 
-        # ## Create full-window image buffer ##########################
+        # ## Create full-window image buffer
         self.img_ptr: Any = mlx.mlx_new_image(self.mlx_ptr,
                                               self.win_w,
                                               self.win_h
@@ -125,7 +125,7 @@ class AppState:
         self.sl: int
         self.data, _bpp, self.sl, _fmt = mlx.mlx_get_data_addr(self.img_ptr)
 
-        # ## Application state ########################################
+        # ## Application state
         self.pal_idx: int = 0
         self.show_path: bool = False
         self.solver: Optional[MazeSolver] = None
@@ -140,8 +140,8 @@ class AppState:
         self.spf: int = 50
         # self.spf: int = max(4, (cfg.width * cfg.height) // 80)
 
-        # ## Icon ####################################################
-        # ## DYNAMIC SPRITE SYSTEM ####################################─
+        # ## Icon
+        # ## DYNAMIC SPRITE SYSTEM
         # 1. Load the XPM image
         orig_res = mlx.mlx_xpm_file_to_image(self.mlx_ptr, _ICON_PATH)
 
@@ -173,7 +173,7 @@ class AppState:
         else:
             self.icon_ptr = None
 
-    # ## Generator management ##############################################
+    # ## Generator management
 
     def _make_gen(self, seed: Optional[int] = None) -> MazeGenerator:
         """Create a new generator and reset all render state."""
@@ -197,7 +197,7 @@ class AppState:
             self.solver = MazeSolver(self.gen)
         return self.solver
 
-    # ## Animation helpers ################################################
+    # ## Animation helpers
 
     @staticmethod
     def _blend_rgb(
@@ -213,7 +213,7 @@ class AppState:
             int(c1[2] + (c2[2] - c1[2]) * t),
         )
 
-    # ## Rendering ########################################################
+    # ## Rendering
 
     def _redraw(self) -> None:
         """Draw the entire scene into the buffer, then call put_image."""
@@ -244,8 +244,7 @@ class AppState:
         )
         draw_hline(data, sl, 0, self.maze_px_h, self.win_w, 1, cb_wall)
 
-        # ## Animation state ########
-
+        # ## Animation state
         trail_map: dict[tuple[int, int], float] = {}
         depth_t: float = 0.0
         pulse: float = 1.0
@@ -276,14 +275,14 @@ class AppState:
             if n_shown > 0:
                 path_head = plist[n_shown - 1]
 
-        # ## Cell drawing loop ########################################─
+        # ## Cell drawing loop
         for row in range(gen.height):
             for col in range(gen.width):
                 px = col * cs
                 py = row * cs
                 pos = (col, row)
 
-                # ## Choose fill colour ################################
+                # ## Choose fill colour
                 if gen.is_42[row][col]:
                     # 42 pattern: always fully walled
                     cb_fill = cb_pattern
@@ -319,7 +318,7 @@ class AppState:
 
                 fill_rect(data, sl, px, py, cs, cs, cb_fill)
 
-                # ## Draw closed walls ################################─
+                # ## Draw closed walls
                 walls = gen.grid[row][col]
                 if walls & NORTH:
                     draw_hline(data, sl, px, py, cs, ww, cb_wall)
@@ -330,7 +329,7 @@ class AppState:
                 if walls & WEST:
                     draw_vline(data, sl, px, py, cs, ww, cb_wall)
 
-        # ## Path tracing line  ########
+        # ## Path tracing line
         if n_shown > 0:
             line_w = max(2, cs // 4)
             cb_line = to_bytes(*pal["path"])
@@ -401,7 +400,7 @@ class AppState:
                 self.mlx_ptr, self.win_ptr, self.icon_ptr, head_x, head_y
             )
 
-        # ## Info bar text ############################################─
+        # ## Info bar text
         wc = to_int(*pal["wall"])
         hc = to_int(*pal["hint"])
         ty = self.maze_px_h + 10
@@ -439,7 +438,7 @@ class AppState:
             "SPACE=regen      P=path      C=color      Q=quit",
         )
 
-    # ## MLX Callbacks ####################################################
+    # ## MLX Callbacks
 
     def on_key(self, keycode: int, _param: object) -> None:
         """Keyboard event handler.
@@ -493,7 +492,7 @@ class AppState:
         """Handle the window close button (WM_DELETE_WINDOW)"""
         self.mlx.mlx_loop_exit(self.mlx_ptr)
 
-    # ## Main loop ########################################################
+    # ## Main loop
 
     def run(self) -> None:
         """Register MLX hooks and enter the main event loop."""
