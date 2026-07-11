@@ -4,10 +4,10 @@
 #                                                          :::      ::::::::  #
 #   renderer.py                                          :+:      :+:    :+:  #
 #                                                      +:+ +:+         +:+    #
-#   By: horarivo <horarivo@student.42antananarivo.   +#+  +:+       +#+       #
+#   By: codespace <codespace@student.42.fr>          +#+  +:+       +#+       #
 #                                                  +#+#+#+#+#+   +#+          #
 #   Created: 2026/05/26 18:47:13 by horarivo            #+#    #+#            #
-#   Updated: 2026/06/14 08:24:26 by horarivo           ###   ########.fr      #
+#   Updated: 2026/07/11 07:33:21 by codespace          ###   ########.fr      #
 #                                                                             #
 # ########################################################################### #
 
@@ -17,7 +17,7 @@ from .config import die
 from .generator import MazeGenerator
 
 
-# ## Helpers ########################
+# ## Helpers
 
 
 def to_bytes(r: int, g: int, b: int) -> bytes:
@@ -32,7 +32,7 @@ def to_int(r: int, g: int, b: int) -> int:
     return 0xFF000000 | (r << 16) | (g << 8) | b
 
 
-# ## Drawing primitives #########################
+# ## Drawing primitives
 
 
 def fill_rect(
@@ -77,7 +77,7 @@ def draw_vline(
     fill_rect(data, sl, x, y, thick, length, cb)
 
 
-# ## Fichier de sortie ####################################################─
+# ## OUtput file
 
 
 def write_output(
