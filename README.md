@@ -218,8 +218,6 @@ a-maze-ing/
 
 ### AI usage
 
-GitHub Copilot was instrumental in enhancing this project:
-
 - **Animation Implementation**: AI assistance was used to implement smooth animations for maze generation and path display, improving the visual feedback and user experience.
 - **Code Quality**: Copilot helped refactor and optimize the code to support animation features efficiently.
 - **Documentation**: AI was used to enhance comments and docstrings throughout the codebase, making the code more maintainable and easier to understand for other developers.
