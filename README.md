@@ -156,18 +156,23 @@ These components can be reused in other maze, game, or graphical application pro
 
 ## Project structure
 
-- `a_maze_ing.py`: main executable
-- `mazegen/app.py`: MLX interface, rendering, and event handling
-- `mazegen/config.py`: configuration parsing and validation
-- `mazegen/constants.py`: constants and color palettes
-- `mazegen/generator.py`: maze generation
-- `mazegen/renderer.py`: rendering and output writing
-- `mazegen/solver.py`: maze solving
-- `config.txt`: example configuration
-- `maze.txt`: generated output file
-- `pyproject.toml`: package configuration
-- `requirements.txt`: development dependencies
-- `Makefile`: install / run / debug / clean / lint targets
+```text
+a-maze-ing/
+├── a_maze_ing.py       - main executable
+├── config.txt          - example configuration
+├── maze.txt            - generated output file
+├── Makefile            - install / run / debug / clean / lint targets
+├── pyproject.toml      - package configuration
+├── requirements.txt    - development dependencies
+└── mazegen/
+    ├── __init__.py     - public API of the package
+    ├── app.py          - MLX interface, rendering, and event handling
+    ├── config.py       - configuration parsing and validation
+    ├── constants.py    - constants and color palettes
+    ├── generator.py    - maze generation
+    ├── renderer.py     - rendering and output writing
+    └── solver.py       - maze solving
+```
 
 ## Project management
 
